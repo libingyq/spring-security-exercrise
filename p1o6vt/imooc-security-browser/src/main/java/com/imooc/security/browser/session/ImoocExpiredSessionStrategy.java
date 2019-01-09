@@ -22,6 +22,7 @@ public class ImoocExpiredSessionStrategy extends AbstractSessionStrategy impleme
 
 	/* (non-Javadoc)
 	 * @see org.springframework.security.web.session.SessionInformationExpiredStrategy#onExpiredSessionDetected(org.springframework.security.web.session.SessionInformationExpiredEvent)
+		session并发登陆控制的记录
 	 */
 	@Override
 	public void onExpiredSessionDetected(SessionInformationExpiredEvent event) throws IOException, ServletException {

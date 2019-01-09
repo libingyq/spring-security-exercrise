@@ -42,7 +42,10 @@ public class SocialConfig extends SocialConfigurerAdapter {
 
     /**
      *
-     * @param connectionFactoryLocator  作用就是为了获取ConnectionFactory
+     * @param connectionFactoryLocator  作用就是为了获取ConnectionFactory 使用的是spring-social提供的默认的
+	 *                                  Encryptors.noOpText() 加密和解密的工具
+	 *
+	 *        这里是创建了一个表 用来存放链接信息
      * @return
      */
 	@Override
@@ -68,6 +71,13 @@ public class SocialConfig extends SocialConfigurerAdapter {
 		return configurer;
 	}
 
+	/**
+	 * 该类的作用有两个：
+	 * 		1.用户在注册时候如何拿到spring-social的信息（也就是authentication的信息）
+	 * 		2.注册完成了 如何把业务系统的userId传给spring-social 和authentication的信息绑定到一起
+	 * @param connectionFactoryLocator
+	 * @return
+	 */
 	@Bean
 	public ProviderSignInUtils providerSignInUtils(ConnectionFactoryLocator connectionFactoryLocator) {
 		return new ProviderSignInUtils(connectionFactoryLocator,

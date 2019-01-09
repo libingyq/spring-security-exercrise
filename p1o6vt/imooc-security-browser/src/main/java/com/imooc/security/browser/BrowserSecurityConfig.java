@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.session.InvalidSessionStrategy;
@@ -54,7 +56,11 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 	
 	@Autowired
 	private InvalidSessionStrategy invalidSessionStrategy;
-	
+
+	//这里就是退出登陆的处理器 写接口  会自动注入自己的实现类
+	@Autowired
+	private LogoutSuccessHandler logoutSuccessHandler;
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
@@ -74,12 +80,29 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 				.tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
 				.userDetailsService(userDetailsService)//这里在校验token后 根据得到的用户名进行登录操作
 				.and()
+				/**
+				 * 下面配置的是session的失效和session并发问题
+				 */
 			.sessionManagement()
+				//这里配置的是session失效后的跳转后的请求
+//				.invalidSessionUrl("/session/invalid")
+				//配置session策略
 				.invalidSessionStrategy(invalidSessionStrategy)
+				//同一个用户所拥有的session的数量（可以控制并发登陆）
 				.maximumSessions(securityProperties.getBrowser().getSession().getMaximumSessions())
+				//当session数量达到最大以后 会阻止后面用户的session登陆
 				.maxSessionsPreventsLogin(securityProperties.getBrowser().getSession().isMaxSessionsPreventsLogin())
 				.expiredSessionStrategy(sessionInformationExpiredStrategy)
 				.and()
+				.and()
+				//这里配置的推出登陆的相关配置
+			.logout()
+				//这里配置的defineUrl 表示的意思的推出登陆的时候的请求链接地址
+				.logoutUrl("/defineUrl")
+				//这里表示的意思是 退出成功拦截器会做一些自定义的处理
+				.logoutSuccessHandler(logoutSuccessHandler)
+				//将浏览器中的cookie进行删除操作
+				.deleteCookies("JSESSIONID")
 				.and()
 			.authorizeRequests()
 				.antMatchers(

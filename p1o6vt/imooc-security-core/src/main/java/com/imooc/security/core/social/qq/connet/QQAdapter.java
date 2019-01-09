@@ -40,12 +40,22 @@ public class QQAdapter implements ApiAdapter<QQ> {
 		values.setProviderUserId(userInfo.getOpenId());
 	}
 
+	/**
+	 * 绑定和解绑的时候会用到
+	 * @param api
+	 * @return
+	 */
 	@Override
 	public UserProfile fetchUserProfile(QQ api) {
-		// TODO Auto-generated method stub
+		// TODO Auto/-generated method stub
 		return null;
 	}
 
+	/**
+	 * 微博等 有主页 可以使用
+	 * @param api
+	 * @param message
+	 */
 	@Override
 	public void updateStatus(QQ api, String message) {
 		//do noting

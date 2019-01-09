@@ -3,6 +3,7 @@
  */
 package com.imooc.security.core.authentication;
 
+import org.apache.commons.collections.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -33,5 +34,5 @@ public class AbstractChannelSecurityConfig extends WebSecurityConfigurerAdapter 
 			.successHandler(imoocAuthenticationSuccessHandler)
 			.failureHandler(imoocAuthenticationFailureHandler);
 	}
-	
+
 }

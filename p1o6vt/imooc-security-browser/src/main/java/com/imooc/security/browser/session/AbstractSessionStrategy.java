@@ -66,7 +66,10 @@ public class AbstractSessionStrategy {
 
 		String sourceUrl = request.getRequestURI();
 		String targetUrl;
-
+		/**
+		 * 这里判断用户请求是要求返回json还是页面跳转
+		 *
+		 */
 		if (StringUtils.endsWithIgnoreCase(sourceUrl, ".html")) {
 			targetUrl = destinationUrl+".html";
 			logger.info("session失效,跳转到"+targetUrl);

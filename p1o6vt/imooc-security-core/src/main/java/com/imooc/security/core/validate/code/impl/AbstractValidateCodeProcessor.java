@@ -77,6 +77,12 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
 	 * @param validateCode
 	 */
 	private void save(ServletWebRequest request, C validateCode) {
+		//这里要注意在session管理中  若是在图片BufferImage会出现无法序列化的问题  所以 可以将图形验证码放到session(也就是redis中)
+		//这里只取验证码 和过期时间
+//		ValidateCode code  =new ValidateCode(validateCode.getCode(),validateCode.getExpireTime());
+//		sessionStrategy.setAttribute(request, getSessionKey(request), code);
+
+		//若是sesssion 不放到redis中的话 就不用上面的两部操作
 		sessionStrategy.setAttribute(request, getSessionKey(request), validateCode);
 	}
 

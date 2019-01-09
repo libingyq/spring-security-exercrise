@@ -4,8 +4,11 @@
 package com.imooc.security.core.social.weixin.connect;
 
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -130,5 +133,12 @@ public class WeixinOAuth2Template extends OAuth2Template {
 		restTemplate.getMessageConverters().add(new StringHttpMessageConverter(Charset.forName("UTF-8")));
 		return restTemplate;
 	}
+
+//	public static void main(String[] args) {
+//		List<String> list = new ArrayList<>(1);
+//		list.add("测试数据");
+//		boolean notEmpty = CollectionUtils.isNotEmpty(list);
+//		System.out.println(notEmpty);
+//	}
 
 }

@@ -3,6 +3,7 @@
  */
 package com.imooc.security.browser;
 
+import com.imooc.security.browser.logout.ImmocSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -35,5 +36,11 @@ public class BrowserSecurityBeanConfig {
 	public SessionInformationExpiredStrategy sessionInformationExpiredStrategy(){
 		return new ImoocExpiredSessionStrategy(securityProperties.getBrowser().getSession().getSessionInvalidUrl());
 	}
-	
+
+	@Bean
+	@ConditionalOnMissingBean(ImmocSuccessHandler.class)
+	public ImmocSuccessHandler immocSuccessHandler(){
+		return new ImmocSuccessHandler(securityProperties.getBrowser().getLogOutUrl());
+	}
+
 }

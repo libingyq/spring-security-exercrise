@@ -15,6 +15,7 @@
 			<artifactId>imooc-security-core</artifactId>
 			<version>${imooc.security.version}</version>
 		</dependency>
+		<!--集群管理session-->
 		<dependency>
 			<groupId>org.springframework.session</groupId>
 			<artifactId>spring-session</artifactId>

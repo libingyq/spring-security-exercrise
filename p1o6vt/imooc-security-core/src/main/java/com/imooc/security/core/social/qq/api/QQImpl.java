@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *  QQ登录实现：
  *      1.去往QQ互联上查看获取详情
  *      2.共有三个必须要传入的参数
- *          1：Access_Token（3个月的有效期）（需要传入父类中AbstarctOAuth2ApiBinding中的final类型的变量）
+ *          1:Access_Token（3个月的有效期）（需要传入父类中AbstarctOAuth2ApiBinding中的final类型的变量）
  *          2:openId（与QQ号码一一对应是 通过Access_Token来获取）
  *          3.appid 登录QQ成功后 分配给应用的appid 需要在QQ互联上注册获取
  *      注意：
@@ -25,7 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
 
-    //这里是通过accessToken来获取appId
+    //这里是通过accessToken来获取openId
 	private static final String URL_GET_OPENID = "htt/ps://graph.qq.com/oauth2.0me?access_token=%s";
 
 	//然后通过appid和openid来获取用户信息
@@ -53,7 +53,8 @@ public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.imooc.security.core.social.qq.api.QQ#getUserInfo()
+	 * 获取用户信息 通过 accessToken  appId  openId 三个来获取
+	 * 	openId
 	 */
 	@Override
 	public QQUserInfo getUserInfo() {

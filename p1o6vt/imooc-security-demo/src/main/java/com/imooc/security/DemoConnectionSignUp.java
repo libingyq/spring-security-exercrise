@@ -9,7 +9,8 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author zhailiang
- *
+ *	解释：
+ *		这样做的原因是：当用户进行使用第三方进行登录的时候 若是第一次就之久进入到首页 默认完成注册
  */
 //@Component
 public class DemoConnectionSignUp implements ConnectionSignUp {

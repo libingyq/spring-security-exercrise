@@ -62,4 +62,6 @@ public class QQOAuth2Template extends OAuth2Template {
 		return restTemplate;
 	}
 
+
+
 }
